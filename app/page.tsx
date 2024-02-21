@@ -30,8 +30,43 @@ export default async function Home() {
     })
     revalidatePath('/')
   }
+
+
+
+
+  async function edit(formData: FormData) {
+    "use server"
+
+    const input = formData.get("input") as string
+    const inputId = formData.get("inputId") as string
+
+    await prisma.todo.update({
+      where: {
+        id: inputId
+      },
+      data: {
+        input: input
+      }
+    })
+    revalidatePath('/')
+  }
+
+
+  async function deleteItem(formData:FormData) {
+    "use server"
+    const inputId = formData.get('inputId') as string
+
+    await prisma.todo.delete({
+      where:{
+        id: inputId
+      }
+    })
+
+    revalidatePath('/')
+  }
+
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
+    <div className=" w-screen flex items-center justify-center">
       <div className="border rounded-lg shadow-xl p-10 w-[70vw]">
         <form action={create} className="flex flex-col">
           <input type="text" name="input" className="border p-1 border-gray-800" />
@@ -40,7 +75,15 @@ export default async function Home() {
         <div className="mt-5 flex flex-col gap-y-2">
           {
             data.map((todo) => (
-              <p key={todo.id}>{todo.input}</p>
+              <form action={edit} className="flex" key={todo.id}>
+                <input type="hidden" name="inputId" value={todo.id} />
+
+                <input className="border p-1" type="text" name="input" defaultValue={todo.input} />
+
+                <button type="submit" className="border bg-green-400">Save</button>
+
+                <button formAction={deleteItem} className="border bg-red-400">Delete</button>
+              </form>
             ))
           }
         </div>
