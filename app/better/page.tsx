@@ -1,5 +1,8 @@
 
 import { create, deleteItem, edit } from '../action';
+import DeleteButton from '../components/DeleteButton';
+import FormElement from '../components/Form';
+import Savebutton from '../components/Savebutton';
 import prisma from '../db'
 
 
@@ -24,22 +27,25 @@ export default async function BetterExample() {
     return (
         <div className=" w-screen flex items-center justify-center">
             <div className="border rounded-lg shadow-xl p-10 w-[70vw]">
-                <form action={create} className="flex flex-col">
-                    <input type="text" name="input" className="border p-1 border-gray-800" />
-                    <button className="bg-green-500 rounded-lg mt-2 text-white py-2" type="submit">Submit</button>
-                </form>
+                <FormElement />
                 <div className="mt-5 flex flex-col gap-y-2">
                     {
                         data.map((todo) => (
-                            <form action={edit} className="flex" key={todo.id}>
-                                <input type="hidden" name="inputId" value={todo.id} />
+                            <div key={todo.id} className='w-full h-full flex items-center'>
+                                <form action={edit} className="flex">
+                                    <input type="hidden" name="inputId" value={todo.id} />
 
-                                <input className="border p-1" type="text" name="input" defaultValue={todo.input} />
+                                    <input className="border p-1" type="text" name="input" defaultValue={todo.input} />
 
-                                <button type="submit" className="border bg-green-400">Save</button>
+                                    <Savebutton />
 
-                                <button formAction={deleteItem} className="border bg-red-400">Delete</button>
-                            </form>
+
+                                </form>
+                                <form action={deleteItem}>
+                                    <input type="hidden" name="inputId" value={todo.id} />
+                                    <DeleteButton />
+                                </form>
+                            </div>
                         ))
                     }
                 </div>
