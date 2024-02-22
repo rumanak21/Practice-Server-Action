@@ -20,7 +20,7 @@ export default function FormElement() {
             formAction(formData);
             formRef.current?.reset()
         }} ref={formRef} className="flex flex-col">
-            <input type="text" name="input" className="border p-1 border-gray-800" />
+            <input required type="text" name="input" className="border p-1 border-gray-800" />
             <SubmitButton />
             <p className="text-red-500">{state as string}</p>
         </form>
