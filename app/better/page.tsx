@@ -25,7 +25,7 @@ export default async function BetterExample() {
     const data = await getData()
 
     return (
-        <div className=" w-screen flex items-center justify-center">
+        <div className=" h-screen w-screen flex items-center justify-center">
             <div className="border rounded-lg shadow-xl p-10 w-[70vw]">
                 <FormElement />
                 <div className="mt-5 flex flex-col gap-y-2">
