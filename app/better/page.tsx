@@ -26,7 +26,7 @@ export default async function BetterExample() {
 
     return (
         <div className=" h-screen w-screen flex items-center justify-center">
-            <div className="border rounded-lg shadow-xl p-10 w-[70vw]">
+            <div className="border rounded-lg shadow-xl p-10 w-[40vw]">
                 <FormElement />
                 <div className="mt-5 flex flex-col gap-y-2">
                     {
